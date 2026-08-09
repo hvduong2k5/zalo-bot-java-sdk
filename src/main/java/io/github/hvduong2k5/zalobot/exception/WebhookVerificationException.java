@@ -6,7 +6,7 @@ package io.github.hvduong2k5.zalobot.exception;
  * The caller (web framework layer) should catch this and return HTTP 401 or 403
  * to the Zalo server.
  */
-public class WebhookVerificationException extends RuntimeException {
+public class WebhookVerificationException extends ZaloException {
 
     public WebhookVerificationException(String message) {
         super(message);

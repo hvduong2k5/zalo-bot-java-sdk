@@ -8,7 +8,7 @@ package io.github.hvduong2k5.zalobot.exception;
  * { "ok": false, "error_code": 400, "description": "Bad Request: chat not found" }
  * }</pre>
  */
-public class ZaloApiException extends RuntimeException {
+public class ZaloApiException extends ZaloException {
 
     private final Integer errorCode;
     private final String description;

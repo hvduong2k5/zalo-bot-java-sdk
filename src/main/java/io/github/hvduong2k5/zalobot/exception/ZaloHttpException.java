@@ -9,7 +9,7 @@ package io.github.hvduong2k5.zalobot.exception;
  *   <li><b>Network failure</b> (timeout, connection refused) — has {@code cause}, no status code</li>
  * </ul>
  */
-public class ZaloHttpException extends RuntimeException {
+public class ZaloHttpException extends ZaloException {
 
     private final Integer statusCode;
     private final String responseBody;
