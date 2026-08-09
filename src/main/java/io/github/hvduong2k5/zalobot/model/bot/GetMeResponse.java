@@ -1,4 +1,6 @@
-package io.github.hvduong2k5.zalobot.model.response;
+package io.github.hvduong2k5.zalobot.model.bot;
+
+import io.github.hvduong2k5.zalobot.model.base.BaseResponse;
 
 public class GetMeResponse extends BaseResponse {
     private BotInfo result;

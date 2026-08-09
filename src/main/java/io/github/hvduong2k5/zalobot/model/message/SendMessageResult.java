@@ -1,4 +1,4 @@
-package io.github.hvduong2k5.zalobot.model.response;
+package io.github.hvduong2k5.zalobot.model.message;
 
 public class SendMessageResult {
     private String messageId;

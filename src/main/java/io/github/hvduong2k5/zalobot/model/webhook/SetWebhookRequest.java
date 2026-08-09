@@ -1,4 +1,4 @@
-package io.github.hvduong2k5.zalobot.model.request;
+package io.github.hvduong2k5.zalobot.model.webhook;
 
 import io.github.hvduong2k5.zalobot.util.Preconditions;
 

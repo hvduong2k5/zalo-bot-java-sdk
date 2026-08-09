@@ -1,4 +1,4 @@
-package io.github.hvduong2k5.zalobot.model.request;
+package io.github.hvduong2k5.zalobot.model.webhook;
 
 public final class GetUpdatesRequest {
     private final Integer timeout; // optional

@@ -1,18 +1,18 @@
-package io.github.hvduong2k5.zalobot.model.request;
+package io.github.hvduong2k5.zalobot.model.message;
 
 import io.github.hvduong2k5.zalobot.util.Preconditions;
 
-public final class SendVoiceRequest {
+public final class SendChatActionRequest {
     private final String chatId;
-    private final String voice;
+    private final String action;
 
-    private SendVoiceRequest(Builder builder) {
+    private SendChatActionRequest(Builder builder) {
         this.chatId = builder.chatId;
-        this.voice = builder.voice;
+        this.action = builder.action;
     }
 
     public String getChatId() { return chatId; }
-    public String getVoice() { return voice; }
+    public String getAction() { return action; }
 
     public static Builder builder() {
         return new Builder();
@@ -20,7 +20,7 @@ public final class SendVoiceRequest {
 
     public static final class Builder {
         private String chatId;
-        private String voice;
+        private String action;
 
         private Builder() {}
 
@@ -29,15 +29,15 @@ public final class SendVoiceRequest {
             return this;
         }
 
-        public Builder voice(String voice) {
-            this.voice = voice;
+        public Builder action(String action) {
+            this.action = action;
             return this;
         }
 
-        public SendVoiceRequest build() {
+        public SendChatActionRequest build() {
             Preconditions.checkNotBlank(chatId, "chatId is required");
-            Preconditions.checkNotBlank(voice, "voice is required");
-            return new SendVoiceRequest(this);
+            Preconditions.checkNotBlank(action, "action is required");
+            return new SendChatActionRequest(this);
         }
     }
 }

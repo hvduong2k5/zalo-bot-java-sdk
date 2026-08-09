@@ -1,4 +1,6 @@
-package io.github.hvduong2k5.zalobot.model.response;
+package io.github.hvduong2k5.zalobot.model.webhook;
+
+import io.github.hvduong2k5.zalobot.model.base.BaseResponse;
 
 import io.github.hvduong2k5.zalobot.model.webhook.Update;
 import java.util.List;
