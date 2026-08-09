@@ -110,12 +110,6 @@ public final class ZaloBotClient {
 
     // --- Factory Methods ---
 
-    /**
-     * Creates a new WebhookDispatcher bound to this client's token as the secret.
-     */
-    public WebhookDispatcher newWebhookDispatcher(UpdateHandler handler) {
-        return new WebhookDispatcher(botToken, jsonMapper, handler);
-    }
 
     /**
      * Creates a new WebhookDispatcher with a custom secret token.
