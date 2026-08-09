@@ -8,6 +8,10 @@ package io.github.hvduong2k5.zalobot.exception;
  */
 public class ZaloJsonException extends ZaloException {
 
+    public ZaloJsonException(String message) {
+        super(message);
+    }
+
     public ZaloJsonException(String message, Throwable cause) {
         super(message, cause);
     }

@@ -14,7 +14,7 @@ import java.util.Objects;
  * <p>
  * Performs constant-time secret token verification and routes events to the appropriate handler.
  */
-public class WebhookDispatcher {
+public final class WebhookDispatcher {
 
     private final String expectedSecretToken;
     private final JsonMapper jsonMapper;
@@ -48,18 +48,23 @@ public class WebhookDispatcher {
         verifySecret(secretTokenHeader);
 
         Update update = jsonMapper.fromJson(body, Update.class);
-        Objects.requireNonNull(update, "Deserialized webhook update must not be null");
+        if (update == null) {
+            throw new ZaloJsonException("Webhook JSON deserialized to null");
+        }
         handler.handle(update);
     }
 
     private void verifySecret(String secretTokenHeader) {
-        if (expectedSecretToken != null) {
-            if (secretTokenHeader == null) {
-                throw new WebhookVerificationException("Missing secret token header");
-            }
-            if (!isEqualConstantTime(expectedSecretToken, secretTokenHeader)) {
-                throw new WebhookVerificationException("Invalid secret token");
-            }
+        if (expectedSecretToken == null) {
+            return;
+        }
+
+        if (secretTokenHeader == null) {
+            throw new WebhookVerificationException("Missing secret token header");
+        }
+
+        if (!isEqualConstantTime(expectedSecretToken, secretTokenHeader)) {
+            throw new WebhookVerificationException("Invalid secret token");
         }
     }
 

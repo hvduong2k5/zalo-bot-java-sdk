@@ -2,6 +2,7 @@ package io.github.hvduong2k5.zalobot.dispatcher;
 
 import io.github.hvduong2k5.zalobot.api.json.JsonMapper;
 import io.github.hvduong2k5.zalobot.exception.WebhookVerificationException;
+import io.github.hvduong2k5.zalobot.exception.ZaloJsonException;
 import io.github.hvduong2k5.zalobot.model.update.Update;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -92,7 +93,7 @@ class WebhookDispatcherTest {
         mockJsonMapper.nextResponse = null;
 
         // Act & Assert
-        assertThrows(NullPointerException.class, () -> {
+        assertThrows(ZaloJsonException.class, () -> {
             dispatcher.dispatch("{}", null);
         });
         assertFalse(mockHandler.wasCalled);
