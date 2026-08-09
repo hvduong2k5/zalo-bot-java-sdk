@@ -1,4 +1,4 @@
-package io.github.hvduong2k5.zalobot.model.webhook;
+package io.github.hvduong2k5.zalobot.model.update;
 
 public class User {
     private String id;
@@ -14,3 +14,4 @@ public class User {
     public boolean isBot() { return isBot; }
     public void setBot(boolean bot) { isBot = bot; }
 }
+
