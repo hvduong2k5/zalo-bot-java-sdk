@@ -17,15 +17,17 @@ import io.github.hvduong2k5.zalobot.api.json.JsonMapper;
  */
 public final class JacksonAdapter implements JsonMapper {
 
+    private static final ObjectMapper DEFAULT_MAPPER = new ObjectMapper()
+            .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+            .setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
+
     private final ObjectMapper objectMapper;
 
     /**
      * Creates an adapter with a default, pre-configured ObjectMapper.
      */
     public JacksonAdapter() {
-        this(new ObjectMapper()
-                .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
-                .setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE));
+        this(DEFAULT_MAPPER);
     }
 
     /**
