@@ -11,8 +11,9 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * OkHttp implementation of {@link HttpClient}.
@@ -50,11 +51,8 @@ public final class OkHttpAdapter implements HttpClient {
     public HttpResponse execute(HttpRequest request) throws IOException {
         Request okRequest = buildOkRequest(request);
 
-        Response okResponse = okHttpClient.newCall(okRequest).execute();
-        try {
+        try (Response okResponse = okHttpClient.newCall(okRequest).execute()) {
             return convertResponse(okResponse);
-        } finally {
-            okResponse.close();
         }
     }
 
@@ -67,7 +65,7 @@ public final class OkHttpAdapter implements HttpClient {
         }
 
         // Build body — SDK only sends POST with JSON body
-        String method = request.getMethod();
+        String method = request.getMethod() != null ? request.getMethod().toUpperCase() : "GET";
         if ("POST".equals(method) || "PUT".equals(method) || "PATCH".equals(method)) {
             String bodyStr = request.getBody();
             RequestBody body = RequestBody.create(
@@ -89,10 +87,11 @@ public final class OkHttpAdapter implements HttpClient {
         ResponseBody responseBody = okResponse.body();
         String bodyStr = responseBody != null ? responseBody.string() : "";
 
-        // Collect response headers
-        Map<String, String> headers = new HashMap<>();
+        // Collect response headers, joining duplicates with comma
+        Map<String, String> headers = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
         for (String name : okResponse.headers().names()) {
-            headers.put(name, okResponse.header(name));
+            List<String> values = okResponse.headers(name);
+            headers.put(name, String.join(",", values));
         }
 
         return new HttpResponse(statusCode, bodyStr, headers);
