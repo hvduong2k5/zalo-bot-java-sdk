@@ -3,8 +3,8 @@ package io.github.hvduong2k5.zalobot.api.http;
 import io.github.hvduong2k5.zalobot.util.Preconditions;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Immutable HTTP request object.
@@ -30,7 +30,11 @@ public final class HttpRequest {
     private HttpRequest(Builder builder) {
         this.method = builder.method;
         this.url = builder.url;
-        this.headers = Collections.unmodifiableMap(new HashMap<>(builder.headers));
+        
+        Map<String, String> map = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+        map.putAll(builder.headers);
+        this.headers = Collections.unmodifiableMap(map);
+        
         this.body = builder.body;
     }
 
@@ -60,7 +64,7 @@ public final class HttpRequest {
     public static final class Builder {
         private String method;
         private String url;
-        private final Map<String, String> headers = new HashMap<>();
+        private final Map<String, String> headers = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
         private String body;
 
         private Builder() {
@@ -78,9 +82,13 @@ public final class HttpRequest {
 
         /**
          * Adds a single header. Can be called multiple times.
+         * Duplicate headers will be merged with a comma separator.
          */
         public Builder header(String name, String value) {
-            this.headers.put(name, value);
+            Preconditions.checkNotBlank(name, "Header name cannot be blank");
+            if (value != null) {
+                this.headers.merge(name, value, (oldVal, newVal) -> oldVal + "," + newVal);
+            }
             return this;
         }
 
