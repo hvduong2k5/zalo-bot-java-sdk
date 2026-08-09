@@ -4,6 +4,8 @@ import io.github.hvduong2k5.zalobot.api.http.HttpClient;
 import io.github.hvduong2k5.zalobot.api.http.HttpRequest;
 import io.github.hvduong2k5.zalobot.api.http.HttpResponse;
 import io.github.hvduong2k5.zalobot.api.json.JsonMapper;
+import io.github.hvduong2k5.zalobot.dispatcher.UpdateHandler;
+import io.github.hvduong2k5.zalobot.dispatcher.WebhookDispatcher;
 import io.github.hvduong2k5.zalobot.exception.ZaloApiException;
 import io.github.hvduong2k5.zalobot.exception.ZaloException;
 import io.github.hvduong2k5.zalobot.exception.ZaloHttpException;
@@ -104,6 +106,22 @@ public final class ZaloBotClient {
         Preconditions.checkNotNull(request, "request cannot be null");
         GetUpdatesResponse response = executeApi("/getUpdates", request, GetUpdatesResponse.class);
         return response.getResult();
+    }
+
+    // --- Factory Methods ---
+
+    /**
+     * Creates a new WebhookDispatcher bound to this client's token as the secret.
+     */
+    public WebhookDispatcher newWebhookDispatcher(UpdateHandler handler) {
+        return new WebhookDispatcher(botToken, jsonMapper, handler);
+    }
+
+    /**
+     * Creates a new WebhookDispatcher with a custom secret token.
+     */
+    public WebhookDispatcher newWebhookDispatcher(String secretToken, UpdateHandler handler) {
+        return new WebhookDispatcher(secretToken, jsonMapper, handler);
     }
 
     // --- Internal Execution ---
