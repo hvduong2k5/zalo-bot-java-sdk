@@ -5,6 +5,9 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import io.github.hvduong2k5.zalobot.api.json.JsonMapper;
+import io.github.hvduong2k5.zalobot.exception.ZaloJsonException;
+
+import java.util.Objects;
 
 /**
  * Jackson implementation of {@link JsonMapper}.
@@ -31,32 +34,38 @@ public final class JacksonAdapter implements JsonMapper {
     }
 
     /**
-     * Creates an adapter with a custom ObjectMapper.
-     * <p>
-     * Note: The provided ObjectMapper must be configured with {@code PropertyNamingStrategies.SNAKE_CASE}
-     * for the SDK POJOs to serialize correctly.
+     * Creates an adapter using the supplied {@link ObjectMapper}.
      *
-     * @param objectMapper the custom mapper
+     * <p>The mapper is used as-is. The SDK does not modify or reconfigure it.
+     * For correct serialization of SDK models, configure the mapper with
+     * {@link PropertyNamingStrategies#SNAKE_CASE}.
+     *
+     * @param objectMapper the mapper to use; must not be {@code null}
+     * @throws NullPointerException if {@code objectMapper} is {@code null}
      */
     public JacksonAdapter(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
+        this.objectMapper = Objects.requireNonNull(objectMapper, "objectMapper must not be null");
     }
 
     @Override
     public String toJson(Object obj) {
+        Objects.requireNonNull(obj, "obj must not be null");
         try {
             return objectMapper.writeValueAsString(obj);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException("Failed to serialize object to JSON: " + obj.getClass().getName(), e);
+            throw new ZaloJsonException("Failed to serialize object to JSON: " + obj.getClass().getName(), e);
         }
     }
 
     @Override
     public <T> T fromJson(String json, Class<T> clazz) {
+        Objects.requireNonNull(json, "json must not be null");
+        Objects.requireNonNull(clazz, "clazz must not be null");
         try {
             return objectMapper.readValue(json, clazz);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException("Failed to deserialize JSON to " + clazz.getName() + ": " + json, e);
+            // Do not dump raw json into exception message to prevent logging sensitive data
+            throw new ZaloJsonException("Failed to deserialize JSON to " + clazz.getName(), e);
         }
     }
 }
