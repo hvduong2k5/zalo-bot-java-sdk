@@ -59,6 +59,18 @@ class WebhookDispatcherTest {
     }
 
     @Test
+    void dispatch_withNullBody_throwsException() {
+        // Arrange
+        WebhookDispatcher dispatcher = new WebhookDispatcher("secret123", mockJsonMapper, mockHandler);
+
+        // Act & Assert
+        assertThrows(NullPointerException.class, () -> {
+            dispatcher.dispatch(null, "secret123");
+        });
+        assertFalse(mockHandler.wasCalled);
+    }
+
+    @Test
     void dispatch_withNoExpectedSecret_skipsVerificationAndInvokesHandler() {
         // Arrange
         WebhookDispatcher dispatcher = new WebhookDispatcher(null, mockJsonMapper, mockHandler);
@@ -74,15 +86,15 @@ class WebhookDispatcherTest {
     }
 
     @Test
-    void dispatch_withNullUpdate_doesNotInvokeHandler() {
+    void dispatch_withNullUpdate_throwsException() {
         // Arrange
         WebhookDispatcher dispatcher = new WebhookDispatcher(null, mockJsonMapper, mockHandler);
         mockJsonMapper.nextResponse = null;
 
-        // Act
-        dispatcher.dispatch("{}", null);
-
-        // Assert
+        // Act & Assert
+        assertThrows(NullPointerException.class, () -> {
+            dispatcher.dispatch("{}", null);
+        });
         assertFalse(mockHandler.wasCalled);
     }
 
