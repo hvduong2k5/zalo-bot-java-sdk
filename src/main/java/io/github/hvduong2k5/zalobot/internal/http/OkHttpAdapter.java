@@ -109,3 +109,4 @@ public final class OkHttpAdapter implements HttpClient {
         return new HttpResponse(statusCode, bodyStr, headers);
     }
 }
+

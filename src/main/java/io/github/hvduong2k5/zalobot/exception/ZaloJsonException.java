@@ -12,3 +12,4 @@ public class ZaloJsonException extends RuntimeException {
         super(message, cause);
     }
 }
+
