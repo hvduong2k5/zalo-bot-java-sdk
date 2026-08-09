@@ -100,8 +100,9 @@ public final class OkHttpAdapter implements HttpClient {
 
         // Collect response headers, joining duplicates with comma
         Map<String, String> headers = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
-        for (String name : okResponse.headers().names()) {
-            List<String> values = okResponse.headers(name);
+        okhttp3.Headers okHeaders = okResponse.headers();
+        for (String name : okHeaders.names()) {
+            List<String> values = okHeaders.values(name);
             headers.put(name, String.join(",", values));
         }
 
