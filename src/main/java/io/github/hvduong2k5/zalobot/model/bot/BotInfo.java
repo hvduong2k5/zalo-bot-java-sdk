@@ -18,3 +18,4 @@ public class BotInfo {
     public boolean isCanJoinGroups() { return canJoinGroups; }
     public void setCanJoinGroups(boolean canJoinGroups) { this.canJoinGroups = canJoinGroups; }
 }
+

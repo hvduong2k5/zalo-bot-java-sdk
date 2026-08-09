@@ -63,3 +63,4 @@ class JacksonAdapterTest {
         assertNull(data.getSomeNumber());
     }
 }
+

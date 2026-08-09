@@ -14,3 +14,4 @@ public class WebhookInfo {
     public int getPendingUpdateCount() { return pendingUpdateCount; }
     public void setPendingUpdateCount(int pendingUpdateCount) { this.pendingUpdateCount = pendingUpdateCount; }
 }
+

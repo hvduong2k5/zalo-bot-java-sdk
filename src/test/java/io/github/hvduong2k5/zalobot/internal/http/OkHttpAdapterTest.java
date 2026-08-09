@@ -90,3 +90,4 @@ class OkHttpAdapterTest {
         assertEquals("GET", recordedRequest.getMethod());
     }
 }
+

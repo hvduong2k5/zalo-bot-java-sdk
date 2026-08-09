@@ -26,3 +26,4 @@ public interface JsonMapper {
      */
     <T> T fromJson(String json, Class<T> clazz);
 }
+
