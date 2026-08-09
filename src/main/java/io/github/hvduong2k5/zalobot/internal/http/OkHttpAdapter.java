@@ -60,8 +60,11 @@ public final class OkHttpAdapter implements HttpClient {
         Request.Builder builder = new Request.Builder().url(request.getUrl());
 
         // Add headers
-        for (Map.Entry<String, String> entry : request.getHeaders().entrySet()) {
-            builder.header(entry.getKey(), entry.getValue());
+        Map<String, String> requestHeaders = request.getHeaders();
+        if (requestHeaders != null) {
+            for (Map.Entry<String, String> entry : requestHeaders.entrySet()) {
+                builder.header(entry.getKey(), entry.getValue());
+            }
         }
 
         // Build body — SDK only sends POST with JSON body
@@ -81,6 +84,14 @@ public final class OkHttpAdapter implements HttpClient {
         return builder.build();
     }
 
+    /**
+     * Converts an OkHttp Response into our SDK's HttpResponse.
+     * <p>
+     * <b>Note on Headers:</b> This implementation comma-folds duplicate headers (e.g. {@code String.join(",", values)}).
+     * While this complies with RFC standards for most HTTP headers, it breaks {@code Set-Cookie} headers because
+     * their values contain internal commas (e.g., in the {@code Expires} attribute). Since this SDK interacts exclusively
+     * with the Zalo Bot API—which does not rely on browser-based cookie sessions—this limitation is acceptable.
+     */
     private HttpResponse convertResponse(Response okResponse) throws IOException {
         int statusCode = okResponse.code();
 
