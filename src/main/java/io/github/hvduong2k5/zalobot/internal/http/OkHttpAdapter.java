@@ -28,6 +28,11 @@ public final class OkHttpAdapter implements HttpClient {
      */
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
+    /**
+     * Default OkHttpClient instance to share connection pools and threads across all default adapters.
+     */
+    private static final OkHttpClient DEFAULT_CLIENT = new OkHttpClient();
+
     private final OkHttpClient okHttpClient;
 
     public OkHttpAdapter(OkHttpClient okHttpClient) {
@@ -35,10 +40,10 @@ public final class OkHttpAdapter implements HttpClient {
     }
 
     /**
-     * Creates an adapter with default OkHttpClient (30s timeouts).
+     * Creates an adapter with the default OkHttpClient.
      */
     public OkHttpAdapter() {
-        this(new OkHttpClient());
+        this(DEFAULT_CLIENT);
     }
 
     @Override
