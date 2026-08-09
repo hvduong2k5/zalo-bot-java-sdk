@@ -1,7 +1,13 @@
-package io.github.hvduong2k5.zalobot.model.webhook;
+package io.github.hvduong2k5.zalobot.model.polling;
 
+/**
+ * Request parameters for the {@code /getUpdates} long-polling endpoint.
+ * <p>
+ * Unlike Telegram, Zalo does not use an {@code offset} parameter.
+ * Each call returns the next pending update (single object).
+ */
 public final class GetUpdatesRequest {
-    private final Integer timeout; // optional
+    private final Integer timeout;
 
     private GetUpdatesRequest(Builder builder) {
         this.timeout = builder.timeout;
