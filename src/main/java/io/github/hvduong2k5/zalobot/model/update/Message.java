@@ -1,4 +1,4 @@
-package io.github.hvduong2k5.zalobot.model.webhook;
+package io.github.hvduong2k5.zalobot.model.update;
 
 public class Message {
     private String messageId;
@@ -42,3 +42,4 @@ public class Message {
     public String getVoiceUrl() { return voiceUrl; }
     public void setVoiceUrl(String voiceUrl) { this.voiceUrl = voiceUrl; }
 }
+

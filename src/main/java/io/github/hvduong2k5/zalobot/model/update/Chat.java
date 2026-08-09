@@ -1,4 +1,4 @@
-package io.github.hvduong2k5.zalobot.model.webhook;
+package io.github.hvduong2k5.zalobot.model.update;
 
 public class Chat {
     private String id;
@@ -10,3 +10,4 @@ public class Chat {
     public String getChatType() { return chatType; }
     public void setChatType(String chatType) { this.chatType = chatType; }
 }
+

@@ -1,5 +1,10 @@
-package io.github.hvduong2k5.zalobot.model.webhook;
+package io.github.hvduong2k5.zalobot.model.update;
 
+/**
+ * Represents a single update event from the Zalo Bot API.
+ * <p>
+ * Shared by both Webhook and {@code /getUpdates} (long-polling) transport mechanisms.
+ */
 public class Update {
     private String eventName;
     private Message message;
