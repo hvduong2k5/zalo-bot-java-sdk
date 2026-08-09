@@ -11,6 +11,7 @@ import io.github.hvduong2k5.zalobot.exception.ZaloException;
 import io.github.hvduong2k5.zalobot.exception.ZaloHttpException;
 import io.github.hvduong2k5.zalobot.internal.http.OkHttpAdapter;
 import io.github.hvduong2k5.zalobot.internal.json.JacksonAdapter;
+import io.github.hvduong2k5.zalobot.polling.ZaloPolling;
 import io.github.hvduong2k5.zalobot.model.base.EmptyResponse;
 import io.github.hvduong2k5.zalobot.model.base.ZaloApiResponse;
 import io.github.hvduong2k5.zalobot.model.bot.BotInfo;
@@ -116,6 +117,13 @@ public final class ZaloBotClient {
      */
     public WebhookDispatcher newWebhookDispatcher(String secretToken, UpdateHandler handler) {
         return new WebhookDispatcher(secretToken, jsonMapper, handler);
+    }
+
+    /**
+     * Creates a new polling engine to retrieve updates.
+     */
+    public ZaloPolling newPolling(UpdateHandler handler) {
+        return new ZaloPolling(this, handler);
     }
 
     // --- Internal Execution ---
