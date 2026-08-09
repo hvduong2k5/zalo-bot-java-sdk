@@ -1,9 +1,10 @@
 package io.github.hvduong2k5.zalobot.model.base;
 
-public abstract class BaseResponse {
+public abstract class ZaloApiResponse<T> {
     private boolean ok;
-    private Integer errorCode; // Integer, not int to avoid unboxing NPE
+    private Integer errorCode;
     private String description;
+    private T result;
 
     public boolean isOk() { return ok; }
     public void setOk(boolean ok) { this.ok = ok; }
@@ -13,4 +14,8 @@ public abstract class BaseResponse {
 
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
+
+    public T getResult() { return result; }
+    public void setResult(T result) { this.result = result; }
 }
+
