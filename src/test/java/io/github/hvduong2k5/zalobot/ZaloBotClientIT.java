@@ -110,7 +110,7 @@ class ZaloBotClientIT {
         io.github.hvduong2k5.zalobot.model.message.SendVoiceRequest request = 
                 io.github.hvduong2k5.zalobot.model.message.SendVoiceRequest.builder()
                         .chatId(testUserId)
-                        .voice("https://samplelib.com/lib/preview/aac/sample-3s.aac")
+                        .voiceUrl("https://samplelib.com/lib/preview/aac/sample-3s.aac")
                         .build();
 
         try {
