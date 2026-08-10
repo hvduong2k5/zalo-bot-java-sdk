@@ -4,15 +4,15 @@ import io.github.hvduong2k5.zalobot.util.Preconditions;
 
 public final class SendVoiceRequest {
     private final String chatId;
-    private final String voice;
+    private final String voiceUrl;
 
     private SendVoiceRequest(Builder builder) {
         this.chatId = builder.chatId;
-        this.voice = builder.voice;
+        this.voiceUrl = builder.voiceUrl;
     }
 
     public String getChatId() { return chatId; }
-    public String getVoice() { return voice; }
+    public String getVoiceUrl() { return voiceUrl; }
 
     public static Builder builder() {
         return new Builder();
@@ -20,7 +20,7 @@ public final class SendVoiceRequest {
 
     public static final class Builder {
         private String chatId;
-        private String voice;
+        private String voiceUrl;
 
         private Builder() {}
 
@@ -29,15 +29,15 @@ public final class SendVoiceRequest {
             return this;
         }
 
-        public Builder voice(String voice) {
-            this.voice = voice;
+        public Builder voiceUrl(String voiceUrl) {
+            this.voiceUrl = voiceUrl;
             return this;
         }
 
         public SendVoiceRequest build() {
             Preconditions.checkNotBlank(chatId, "chatId is required");
-            Preconditions.checkNotBlank(voice, "voice is required");
-            if (!voice.toLowerCase().endsWith(".aac")) {
+            Preconditions.checkNotBlank(voiceUrl, "voiceUrl is required");
+            if (!voiceUrl.toLowerCase().endsWith(".aac")) {
                 throw new IllegalArgumentException("Voice URL must have a .aac extension per Zalo API requirements.");
             }
             return new SendVoiceRequest(this);
