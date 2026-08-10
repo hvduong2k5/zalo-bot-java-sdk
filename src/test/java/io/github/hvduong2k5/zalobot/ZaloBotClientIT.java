@@ -140,8 +140,10 @@ class ZaloBotClientIT {
         try {
             io.github.hvduong2k5.zalobot.model.update.Update update = client.getUpdate(request);
             // Có thể trả về null nếu không có update nào pending
+            System.out.println("Update: " + update);
         } catch (io.github.hvduong2k5.zalobot.exception.ZaloApiException e) {
             // Bỏ qua nếu có lỗi trả về từ Zalo (ví dụ do tần suất gọi)
+            System.out.println(e.getDescription() + " - " + e.getErrorCode());
         }
     }
 }
