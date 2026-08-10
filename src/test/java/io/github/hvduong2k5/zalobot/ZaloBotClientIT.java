@@ -91,7 +91,7 @@ class ZaloBotClientIT {
         io.github.hvduong2k5.zalobot.model.message.SendStickerRequest request = 
                 io.github.hvduong2k5.zalobot.model.message.SendStickerRequest.builder()
                         .chatId(testUserId)
-                        .sticker("b9a528cc200155b1ffda") // mẫu sticker ID
+                        .sticker("4591eff8d2bd3be362ac") // mẫu sticker ID
                         .build();
 
         try {
@@ -119,6 +119,7 @@ class ZaloBotClientIT {
             assertNotNull(result.getMessageId(), "Message ID should not be null");
         } catch (io.github.hvduong2k5.zalobot.exception.ZaloApiException e) {
             // Có thể bỏ qua nếu URL voice không hợp lệ
+            System.out.println(e.getDescription()+" - " + e.getErrorCode());
         }
     }
 
