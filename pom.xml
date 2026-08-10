@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project 
+    xmlns="http://maven.apache.org/POM/4.0.0"
+         
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>io.github.hvduong2k5</groupId>
     <artifactId>zalo-bot-java-sdk</artifactId>
     <version>1.0.0</version>
-
     <name>Zalo Bot Java SDK</name>
     <description>A lightweight, robust Java SDK for interacting with the Zalo Bot Platform API.</description>
     <url>https://github.com/hvduong2k5/zalo-bot-java-sdk</url>
-
     <licenses>
         <license>
             <name>MIT License</name>
@@ -19,7 +18,6 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
-
     <developers>
         <developer>
             <id>hvduong2k5</id>
@@ -27,13 +25,11 @@
             <url>https://github.com/hvduong2k5</url>
         </developer>
     </developers>
-
     <scm>
         <connection>scm:git:git://github.com/hvduong2k5/zalo-bot-java-sdk.git</connection>
         <developerConnection>scm:git:ssh://github.com:hvduong2k5/zalo-bot-java-sdk.git</developerConnection>
         <url>https://github.com/hvduong2k5/zalo-bot-java-sdk</url>
     </scm>
-
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -45,33 +41,28 @@
             <artifactId>okhttp</artifactId>
             <version>4.12.0</version>
         </dependency>
-
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.22.0</version>
         </dependency>
-
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>2.0.13</version>
         </dependency>
-
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <version>5.10.2</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>mockwebserver</artifactId>
             <version>4.12.0</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
@@ -79,7 +70,6 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -95,7 +85,6 @@
                     </execution>
                 </executions>
             </plugin>
-            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
@@ -109,7 +98,6 @@
                     </execution>
                 </executions>
             </plugin>
-            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -134,7 +122,6 @@
             </plugin>
         </plugins>
     </build>
-
     <profiles>
         <profile>
             <id>release</id>
@@ -144,6 +131,10 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
                         <version>3.2.7</version>
+                        <configuration>
+                            <executable>E:\GnuPG\bin\gpg.exe</executable>
+                            <keyname>653E2F7CA5D37893</keyname>
+                        </configuration>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
@@ -153,9 +144,6 @@
                                 </goals>
                             </execution>
                         </executions>
-                        <configuration>
-                            <keyname>653E2F7CA5D37893</keyname>
-                        </configuration>
                     </plugin>
                 </plugins>
             </build>
