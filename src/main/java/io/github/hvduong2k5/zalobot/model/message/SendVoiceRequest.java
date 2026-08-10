@@ -37,6 +37,9 @@ public final class SendVoiceRequest {
         public SendVoiceRequest build() {
             Preconditions.checkNotBlank(chatId, "chatId is required");
             Preconditions.checkNotBlank(voice, "voice is required");
+            if (!voice.toLowerCase().endsWith(".aac")) {
+                throw new IllegalArgumentException("Voice URL must have a .aac extension per Zalo API requirements.");
+            }
             return new SendVoiceRequest(this);
         }
     }
