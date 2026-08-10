@@ -5,7 +5,7 @@ import io.github.hvduong2k5.zalobot.api.http.HttpClient;
 import io.github.hvduong2k5.zalobot.api.http.HttpRequest;
 import io.github.hvduong2k5.zalobot.api.http.HttpResponse;
 import io.github.hvduong2k5.zalobot.api.json.JsonMapper;
-import io.github.hvduong2k5.zalobot.dispatcher.UpdateHandler;
+import io.github.hvduong2k5.zalobot.handler.UpdateHandler;
 import io.github.hvduong2k5.zalobot.model.polling.GetUpdatesResponse;
 import io.github.hvduong2k5.zalobot.model.update.Update;
 import org.junit.jupiter.api.AfterEach;
