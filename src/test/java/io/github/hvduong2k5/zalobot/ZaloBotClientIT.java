@@ -62,6 +62,12 @@ class ZaloBotClientIT {
 
         // This method returns void (EmptyResponse internally), so if it doesn't throw an exception, it's successful.
         org.junit.jupiter.api.Assertions.assertDoesNotThrow(() -> client.sendChatAction(request));
+        System.out.println("Hãy nhìn vào điện thoại ngay bây giờ!");
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
