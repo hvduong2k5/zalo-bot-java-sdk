@@ -52,49 +52,97 @@ public final class ZaloBotClient {
 
     // --- API Methods ---
 
+    /**
+     * Get information about the bot.
+     * @return BotInfo object containing bot details.
+     * @throws ZaloApiException if the API returns an error.
+     */
     public BotInfo getMe() {
         GetMeResponse response = executeApi("/getMe", null, GetMeResponse.class);
         return response.getResult();
     }
 
+    /**
+     * Send a text message to a user.
+     * @param request The SendMessageRequest containing the recipient and text.
+     * @return SendMessageResult with the message ID.
+     * @throws ZaloApiException if the API returns an error.
+     */
     public SendMessageResult sendMessage(SendMessageRequest request) {
         Preconditions.checkNotNull(request, "request cannot be null");
         SendMessageResponse response = executeApi("/sendMessage", request, SendMessageResponse.class);
         return response.getResult();
     }
 
+    /**
+     * Send a photo to a user.
+     * @param request The SendPhotoRequest containing the recipient and photo URL.
+     * @return SendMessageResult with the message ID.
+     * @throws ZaloApiException if the API returns an error.
+     */
     public SendMessageResult sendPhoto(SendPhotoRequest request) {
         Preconditions.checkNotNull(request, "request cannot be null");
         SendMessageResponse response = executeApi("/sendPhoto", request, SendMessageResponse.class);
         return response.getResult();
     }
 
+    /**
+     * Send a sticker to a user.
+     * @param request The SendStickerRequest containing the recipient and sticker ID.
+     * @return SendMessageResult with the message ID.
+     * @throws ZaloApiException if the API returns an error.
+     */
     public SendMessageResult sendSticker(SendStickerRequest request) {
         Preconditions.checkNotNull(request, "request cannot be null");
         SendMessageResponse response = executeApi("/sendSticker", request, SendMessageResponse.class);
         return response.getResult();
     }
 
+    /**
+     * Send a voice message to a user.
+     * @param request The SendVoiceRequest containing the recipient and voice URL.
+     * @return SendMessageResult with the message ID.
+     * @throws ZaloApiException if the API returns an error.
+     */
     public SendMessageResult sendVoice(SendVoiceRequest request) {
         Preconditions.checkNotNull(request, "request cannot be null");
         SendMessageResponse response = executeApi("/sendVoice", request, SendMessageResponse.class);
         return response.getResult();
     }
 
+    /**
+     * Send a chat action (like "typing") to a user.
+     * @param request The SendChatActionRequest containing the recipient and action.
+     * @throws ZaloApiException if the API returns an error.
+     */
     public void sendChatAction(SendChatActionRequest request) {
         Preconditions.checkNotNull(request, "request cannot be null");
         executeApi("/sendChatAction", request, EmptyResponse.class);
     }
 
+    /**
+     * Set a webhook URL to receive incoming updates.
+     * @param request The SetWebhookRequest containing the URL.
+     * @throws ZaloApiException if the API returns an error.
+     */
     public void setWebhook(SetWebhookRequest request) {
         Preconditions.checkNotNull(request, "request cannot be null");
         executeApi("/setWebhook", request, EmptyResponse.class);
     }
 
+    /**
+     * Delete the previously set webhook.
+     * @throws ZaloApiException if the API returns an error.
+     */
     public void deleteWebhook() {
         executeApi("/deleteWebhook", null, EmptyResponse.class);
     }
 
+    /**
+     * Get information about the current webhook status.
+     * @return WebhookInfo containing the webhook URL and status.
+     * @throws ZaloApiException if the API returns an error.
+     */
     public WebhookInfo getWebhookInfo() {
         WebhookInfoResponse response = executeApi("/getWebhookInfo", null, WebhookInfoResponse.class);
         return response.getResult();
