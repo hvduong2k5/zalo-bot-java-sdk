@@ -1,4 +1,4 @@
-package io.github.hvduong2k5.zalobot.dispatcher;
+package io.github.hvduong2k5.zalobot.handler;
 
 import io.github.hvduong2k5.zalobot.model.update.Update;
 
