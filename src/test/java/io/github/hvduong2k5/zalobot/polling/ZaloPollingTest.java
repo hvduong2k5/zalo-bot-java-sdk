@@ -50,8 +50,11 @@ class ZaloPollingTest {
     }
 
     @Test
-    void start_twice_throwsIllegalStateException() {
+    void start_twice_throwsIllegalStateException() throws InterruptedException {
+        // Ngăn thread chết ngay lập tức do NPE bằng cách giả lập lỗi mạng để nó vào vòng lặp retry
+        mockHttpClient.nextException = new IOException("Network error");
         polling.start();
+        
         assertThrows(IllegalStateException.class, () -> polling.start());
     }
 
