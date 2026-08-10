@@ -6,7 +6,33 @@
 
     <groupId>io.github.hvduong2k5</groupId>
     <artifactId>zalo-bot-java-sdk</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
+
+    <name>Zalo Bot Java SDK</name>
+    <description>A lightweight, robust Java SDK for interacting with the Zalo Bot Platform API.</description>
+    <url>https://github.com/hvduong2k5/zalo-bot-java-sdk</url>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>hvduong2k5</id>
+            <name>Hoang Vu Duong</name>
+            <url>https://github.com/hvduong2k5</url>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/hvduong2k5/zalo-bot-java-sdk.git</connection>
+        <developerConnection>scm:git:ssh://github.com:hvduong2k5/zalo-bot-java-sdk.git</developerConnection>
+        <url>https://github.com/hvduong2k5/zalo-bot-java-sdk</url>
+    </scm>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -65,6 +91,34 @@
                         <goals>
                             <goal>integration-test</goal>
                             <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.3.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.6.3</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
                         </goals>
                     </execution>
                 </executions>
