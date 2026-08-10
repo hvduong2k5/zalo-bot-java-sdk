@@ -3,6 +3,7 @@ package io.github.hvduong2k5.zalobot.dispatcher;
 import io.github.hvduong2k5.zalobot.api.json.JsonMapper;
 import io.github.hvduong2k5.zalobot.exception.WebhookVerificationException;
 import io.github.hvduong2k5.zalobot.exception.ZaloJsonException;
+import io.github.hvduong2k5.zalobot.handler.UpdateHandler;
 import io.github.hvduong2k5.zalobot.model.update.Update;
 
 import java.nio.charset.StandardCharsets;
