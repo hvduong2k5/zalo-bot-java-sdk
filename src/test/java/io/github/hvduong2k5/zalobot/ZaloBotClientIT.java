@@ -71,7 +71,7 @@ class ZaloBotClientIT {
         io.github.hvduong2k5.zalobot.model.message.SendPhotoRequest request = 
                 io.github.hvduong2k5.zalobot.model.message.SendPhotoRequest.builder()
                         .chatId(testUserId)
-                        .photo("https://developers.zalo.me/web/static/zalo.png")
+                        .photo("https://gdtc.hvduong.qzz.io/favicon.ico")
                         .caption("Test Photo")
                         .build();
 
