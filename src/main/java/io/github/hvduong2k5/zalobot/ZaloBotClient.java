@@ -4,8 +4,8 @@ import io.github.hvduong2k5.zalobot.api.http.HttpClient;
 import io.github.hvduong2k5.zalobot.api.http.HttpRequest;
 import io.github.hvduong2k5.zalobot.api.http.HttpResponse;
 import io.github.hvduong2k5.zalobot.api.json.JsonMapper;
-import io.github.hvduong2k5.zalobot.dispatcher.UpdateHandler;
 import io.github.hvduong2k5.zalobot.dispatcher.WebhookDispatcher;
+import io.github.hvduong2k5.zalobot.handler.UpdateHandler;
 import io.github.hvduong2k5.zalobot.exception.ZaloApiException;
 import io.github.hvduong2k5.zalobot.exception.ZaloException;
 import io.github.hvduong2k5.zalobot.exception.ZaloHttpException;
@@ -147,6 +147,8 @@ public final class ZaloBotClient {
             httpResponse = httpClient.execute(request);
         } catch (IOException e) {
             throw new ZaloHttpException("Network error while executing API: " + e.getMessage(), e);
+        } catch (ZaloException e) {
+            throw e;
         } catch (Exception e) {
             throw new ZaloException("Unexpected error during HTTP request execution", e);
         }
@@ -158,6 +160,8 @@ public final class ZaloBotClient {
         R response;
         try {
             response = jsonMapper.fromJson(httpResponse.getBody(), responseClass);
+        } catch (ZaloException e) {
+            throw e;
         } catch (Exception e) {
             throw new ZaloException("Failed to parse API response", e);
         }
