@@ -73,12 +73,12 @@ class ZaloPollingTest {
         mockJsonMapper.nextResponse = response;
         mockHttpClient.nextResponse = new HttpResponse(200, "{}", null);
 
-        // Make the mock client throw after the first request to stop the loop naturally
         mockHttpClient.failAfterRequests = 1;
         mockHttpClient.failWithException = new RuntimeException("Stop loop");
+        mockHttpClient.expectRequests(1);
 
         polling.start();
-        mockHttpClient.awaitRequests(1);
+        mockHttpClient.awaitRequests();
         polling.stop();
 
         assertTrue(mockHandler.wasCalled);
@@ -95,9 +95,10 @@ class ZaloPollingTest {
         mockHttpClient.nextResponse = new HttpResponse(200, "{}", null);
         mockHttpClient.failAfterRequests = 1;
         mockHttpClient.failWithException = new RuntimeException("Stop loop");
+        mockHttpClient.expectRequests(1);
 
         polling.start();
-        mockHttpClient.awaitRequests(1);
+        mockHttpClient.awaitRequests();
         polling.stop();
 
         assertFalse(mockHandler.wasCalled);
@@ -132,9 +133,10 @@ class ZaloPollingTest {
         mockHandler.throwOnHandle = new RuntimeException("Handler crashed");
         mockHttpClient.failAfterRequests = 2; // Should survive 1st crash
         mockHttpClient.failWithException = new RuntimeException("Stop loop");
+        mockHttpClient.expectRequests(2);
 
         polling.start();
-        mockHttpClient.awaitRequests(2);
+        mockHttpClient.awaitRequests();
         polling.stop();
 
         assertEquals(2, mockHandler.callCount);
@@ -145,9 +147,10 @@ class ZaloPollingTest {
         mockHttpClient.nextException = new IOException("Network timeout");
         mockHttpClient.failAfterRequests = 4;
         mockHttpClient.failWithException = new RuntimeException("Stop loop");
+        mockHttpClient.expectRequests(4);
 
         polling.start();
-        mockHttpClient.awaitRequests(4);
+        mockHttpClient.awaitRequests();
         polling.stop();
 
         List<Long> sleeps = mockSleeper.getSleeps();
@@ -160,9 +163,10 @@ class ZaloPollingTest {
         mockHttpClient.nextResponse = new HttpResponse(502, "Bad Gateway", null);
         mockHttpClient.failAfterRequests = 4;
         mockHttpClient.failWithException = new RuntimeException("Stop loop");
+        mockHttpClient.expectRequests(4);
 
         polling.start();
-        mockHttpClient.awaitRequests(4);
+        mockHttpClient.awaitRequests();
         polling.stop();
 
         List<Long> sleeps = mockSleeper.getSleeps();
@@ -202,9 +206,12 @@ class ZaloPollingTest {
             return nextResponse;
         }
         
-        void awaitRequests(int count) throws InterruptedException {
+        void expectRequests(int count) {
             latch = new CountDownLatch(count);
-            latch.await(2, TimeUnit.SECONDS);
+        }
+
+        void awaitRequests() throws InterruptedException {
+            if (latch != null) latch.await(2, TimeUnit.SECONDS);
         }
     }
 
