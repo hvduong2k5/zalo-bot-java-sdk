@@ -118,6 +118,7 @@
                 <extensions>true</extensions>
                 <configuration>
                     <publishingServerId>central</publishingServerId>
+                    <autoPublish>false</autoPublish>
                 </configuration>
             </plugin>
         </plugins>
@@ -131,10 +132,6 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
                         <version>3.2.7</version>
-                        <configuration>
-                            <executable>E:\GnuPG\bin\gpg.exe</executable>
-                            <keyname>653E2F7CA5D37893</keyname>
-                        </configuration>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
