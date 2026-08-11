@@ -1,0 +1,38 @@
+name: Publish to Maven Central
+
+on:
+  # Cho phép chạy workflow bằng tay từ tab Actions trên GitHub
+  workflow_dispatch:
+  # Hoặc tự động chạy khi push tag mới (ví dụ: v1.0.0)
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: env
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '8' # Phù hợp với maven.compiler.source trong pom.xml
+          distribution: 'temurin'
+          server-id: central
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
+          gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+          gpg-passphrase: ${{ secrets.GPG_PASSPHRASE }}
+
+      - name: Publish package
+        run: mvn --batch-mode deploy -P release
+        env:
+          # Các biến môi trường này được lấy từ GitHub Secrets
+          MAVEN_USERNAME: ${{ secrets.CENTRAL_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.CENTRAL_PASSWORD }}
+          # Mật khẩu GPG (nếu có) sẽ được truyền tự động vào plugin
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
