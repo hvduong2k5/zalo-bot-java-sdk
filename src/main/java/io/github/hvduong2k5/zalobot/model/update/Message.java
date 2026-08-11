@@ -7,10 +7,12 @@ public class Message {
     private Chat chat;
     private String text;
     private String photo;
+    private String photoUrl; // Zalo thực tế gửi "photo_url"
     private String caption;
     private String sticker;
     private String url;
     private String voiceUrl;
+    private String messageType; // Zalo thực tế gửi "message_type"
 
     public String getMessageId() { return messageId; }
     public void setMessageId(String messageId) { this.messageId = messageId; }
@@ -27,8 +29,14 @@ public class Message {
     public String getText() { return text; }
     public void setText(String text) { this.text = text; }
 
-    public String getPhoto() { return photo; }
+    public String getPhoto() { 
+        if (photo != null) return photo;
+        return photoUrl;
+    }
     public void setPhoto(String photo) { this.photo = photo; }
+
+    public String getPhotoUrl() { return photoUrl; }
+    public void setPhotoUrl(String photoUrl) { this.photoUrl = photoUrl; }
 
     public String getCaption() { return caption; }
     public void setCaption(String caption) { this.caption = caption; }
@@ -41,5 +49,8 @@ public class Message {
 
     public String getVoiceUrl() { return voiceUrl; }
     public void setVoiceUrl(String voiceUrl) { this.voiceUrl = voiceUrl; }
+
+    public String getMessageType() { return messageType; }
+    public void setMessageType(String messageType) { this.messageType = messageType; }
 }
 
