@@ -122,5 +122,43 @@ public ResponseEntity<String> handleWebhook(
 }
 ```
 
+### 5. Advanced: Handling Unknown or Custom Fields
+
+If the Zalo platform adds new fields that are not yet available in the SDK, or if you want to use custom models (e.g., extending `Message`), you can provide a custom `JsonMapper`.
+
+For example, using Jackson to map new fields into a custom subclass:
+
+```java
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import io.github.hvduong2k5.zalobot.internal.json.JacksonAdapter;
+import io.github.hvduong2k5.zalobot.model.update.Message;
+
+// 1. Create your custom model extending the SDK's model
+public class MyCustomMessage extends Message {
+    private String videoUrl;
+    
+    public String getVideoUrl() { return videoUrl; }
+    public void setVideoUrl(String videoUrl) { this.videoUrl = videoUrl; }
+}
+
+// 2. Configure Jackson to use your custom class
+ObjectMapper mapper = new ObjectMapper()
+        .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+        .setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
+
+SimpleModule module = new SimpleModule();
+module.addAbstractTypeMapping(Message.class, MyCustomMessage.class);
+mapper.registerModule(module);
+
+// 3. Inject the custom mapper into the client
+ZaloBotClient client = ZaloBotClient.builder()
+        .botToken("YOUR_ZALO_BOT_TOKEN")
+        .jsonMapper(new JacksonAdapter(mapper))
+        .build();
+```
+
 ## Contributing
 Contributions are welcome! Please run `mvn clean verify` to ensure all tests pass before submitting a pull request.
